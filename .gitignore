@@ -1,5 +1,8 @@
 Blog_website_MERN/server/node_modules
 Blog_website_MERN/server/.env
+Authentication and Authurization/server/node_modules
+Authentication and Authurization/client/node_modules
+Authentication and Authurization/server/.env
 client/node_modules
 client/.env
 uploads
