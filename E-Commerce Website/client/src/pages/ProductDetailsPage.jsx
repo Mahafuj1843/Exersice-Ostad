@@ -5,11 +5,14 @@ import Ratings from '../components/Ratings'
 import { ProductdetailsRequest } from '../api_request/productRequest'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import store from '../redux/store/store'
+import { addToCart, removeFromCart } from '../redux/state/cartSlice'
 
 const ProductDetailsPage = () => {
     let params = useParams()
     let productdetails = useSelector((state) => (state.product.ProductDetails));
-    console.log(productdetails)
+    let cart = useSelector((state) => (state.cart.Cart));
+
   useEffect(()=>{
     (async () => {
       await ProductdetailsRequest(params.id);
@@ -73,33 +76,18 @@ const ProductDetailsPage = () => {
                             {`(Also includes all applicable duties)`}
                         </div>
 
-                        {/* ADD TO CART BUTTON START */}
-                        <button
-                            className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
-                        // onClick={() => {
-                        //     if (!selectedSize) {
-                        //         setShowError(true);
-                        //         document
-                        //             .getElementById("sizesGrid")
-                        //             .scrollIntoView({
-                        //                 block: "center",
-                        //                 behavior: "smooth",
-                        //             });
-                        //     } else {
-                        //         dispatch(
-                        //             addToCart({
-                        //                 ...product?.data?.[0],
-                        //                 selectedSize,
-                        //                 oneQuantityPrice: p.price,
-                        //             })
-                        //         );
-                        //         notify();
-                        //     }
-                        // }}
-                        >
-                            Add to Cart
-                        </button>
-                        {/* ADD TO CART BUTTON END */}
+                        {
+                            cart.some((p) => p._id === productdetails._id) ?
+                            <button onClick={() => store.dispatch(removeFromCart(productdetails))} className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+                            >
+                                Remove from cart
+                            </button>
+                            :
+                            <button onClick={() => store.dispatch(addToCart(productdetails))} className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+                            >
+                                Add to Cart
+                            </button>
+                        }
 
                         {/* WHISHLIST BUTTON START */}
                         <button className="w-full py-4 rounded-full border border-black text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10">

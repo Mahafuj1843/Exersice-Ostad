@@ -1,16 +1,16 @@
 import axios from "axios";
-// import { getToken, setToken, setUserDetails } from "../helper/sessionHelper";
-// import { setProduct, setTotal } from "../redux/state/productSlice";
 import store from "../redux/store/store";
 import { ErrorToast } from "../helper/formHelper";
+import { setCart } from "../redux/state/cartSlice";
+import { getToken } from "../helper/sessionHelper";
 const BaseURL = "http://localhost:8001/api"
-// const AxiosHeader = { headers: { "token": getToken() } }
+const AxiosHeader = { headers: { "token": getToken() } }
 
-export const AllProductRequest = () => {
-    let URL = BaseURL + "/product";
-    return axios.get(URL).then((res) => {
+export const CartItemsRequest = () => {
+    let URL = BaseURL + "/cart";
+    return axios.get(URL, AxiosHeader).then((res) => {
         if (res.status === 200) {
-            store.dispatch(setProduct(res.data))
+            store.dispatch(setCart(res.data))
             return true;
         } else {
             ErrorToast("Something Went Wrong")

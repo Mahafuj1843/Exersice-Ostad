@@ -15,7 +15,7 @@ const productRouter = require('./routes/productRoute')
 const brandRouter = require('./routes/brandRoute')
 const cartRouter = require('./routes/cartRoute')
 // const wishlistRouter = require('./routes/wishlistRouter')
-// const orderRouter = require('./routes/orderRoute')
+const orderRouter = require('./routes/orderRoute')
 // const ratingRouter = require('./routes/ratingRoute')
 // const couponRouter = require('./routes/couponRoute')
 
@@ -40,7 +40,7 @@ app.use('/api/product', productRouter);
 app.use('/api/brand', brandRouter);
 app.use('/api/cart', cartRouter);
 // app.use('/api/wishlist', wishlistRouter);
-// app.use('/api/order', orderRouter);
+app.use('/api/order', orderRouter);
 // app.use('/api/rating', ratingRouter);
 // app.use('/api/coupon', couponRouter);
 

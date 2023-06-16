@@ -1,9 +1,13 @@
-const Stripe = require("stripe")
+const Stripe = require("stripe");
+const Order = require("../models/Order");
+const OrderItems = require("../models/OrderItems");
+const Shipping = require("../models/Shipping");
+const { parentChildCreateService } = require("../services/parentChildService");
 
 exports.intent = async (req, res, next) =>{
     const stripe = new Stripe(process.env.STRIPE_SECRET)
 
-    const totalPrice = 120
+    const totalPrice = req.body.cartItems.map(x => x.price * x.qty).reduce((prev, curr) => prev + curr, 0)
     // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalPrice * 100, // not multiply 100 then amount will show in cent not doller
@@ -12,6 +16,10 @@ exports.intent = async (req, res, next) =>{
       enabled: true,
     },
   });
+
+  await parentChildCreateService(req, Order, OrderItems, Shipping, paymentIntent)
+
+  res.status(200).send({clientSecret: paymentIntent.client_secret})
 }
 
 exports.confirmOrder = async (req, res, next) =>{

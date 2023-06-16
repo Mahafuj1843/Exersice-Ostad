@@ -1,10 +1,34 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ErrorToast, IsEmail, IsPassword } from '../helper/formHelper'
+import { LoginRequest } from '../api_request/authRequest'
 
 const SignIn = () => {
     const [show, setShow] = useState(false)
     let email, password = useRef()
     let navigate = useNavigate()
+
+    const onLogin = async () => {
+        if (IsEmail(email.value)) {
+            ErrorToast("Invalid email address.")
+        }
+        else if (IsPassword(password.value)) {
+            ErrorToast("Password must be six characters, at least one letter and one number !")
+        }
+        else {
+            await LoginRequest(email.value, password.value).then((result) => {
+                if (result) navigate('/cart')
+                else navigate('/signin')
+            })
+        }
+    }
+    const onLoginGuest = async () => {
+        await LoginRequest('johncena@gmail.com', 'a12345').then((result) => {
+            if (result) navigate('/cart')
+            else navigate('/signin')
+        })
+    }
+
     return (
         <Fragment>
             <section className="bg-gray-50">
@@ -52,11 +76,11 @@ const SignIn = () => {
                                     </div>
                                     <Link to="/forgetPassword" className="text-xs md:text-sm font-medium text-[#0C7075] hover:underline ">Forgot password?</Link>
                                 </div>
-                                <button /*onClick={onLogin}*/ type="submit" className="w-full text-white bg-[#0C7075] hover:bg-[#1a8d91] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
+                                <button onClick={onLogin} type="submit" className="w-full text-white bg-[#0C7075] hover:bg-[#1a8d91] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                                 <p className="text-sm font-light text-gray-500 ">
                                     Don’t have an account yet? <Link to="/signup" className="font-medium text-[#0C7075] hover:underline ">Sign up</Link>
                                 </p>
-                                <button /*onClick={onLoginGuest}*/ type="submit" className="w-full text-white bg-[#142d2e] hover:bg-[#152627] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ]">Sign in as guest user</button>
+                                <button onClick={onLoginGuest} type="submit" className="w-full text-white bg-[#142d2e] hover:bg-[#152627] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ]">Sign in as guest user</button>
                             </div>
                         </div>
                     </div>

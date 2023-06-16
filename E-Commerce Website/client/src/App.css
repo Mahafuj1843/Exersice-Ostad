@@ -16,6 +16,9 @@ h1,h2,h3,h4,h5,h6,p{
 ul li .active{
     background-color: rgb(209, 205, 205);
 }
+.account:hover>ul{
+    display: block;
+}
 
 .newsletter-section {
     width: 100%;

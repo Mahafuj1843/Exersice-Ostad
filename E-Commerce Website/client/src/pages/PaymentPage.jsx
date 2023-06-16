@@ -2,12 +2,13 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../components/CheckoutForm';
+import { useSelector } from 'react-redux';
 
 const stripePromise = loadStripe("pk_test_51NIZ5YHXYshn0OkhX8bSzG5WsIizH8sSCZYnmidCwtPAQ58t9QWjHgWaSI4TSdcguhUrOTMRRtrtyr33lv4li66r001zFOIsFQ");
 
 
 const PaymentPage = () => {
-  const [clientSecret, setClientSecret] = useState("");
+  let clientSecret = useSelector((state) => (state.cart.clientSecret));
 
   const makeApiRequest = async () => {
     try {

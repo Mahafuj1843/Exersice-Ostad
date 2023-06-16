@@ -7,38 +7,35 @@ const ShippingSchema = new mongoose.Schema({
     },
     firstname:{
         type: String,
-        required: true,
+        // required: true,
     },
     lastname:{
         type: String,
-        required: true,
+        // required: true,
     },
     email:{
         type: String,
-        required: true,
+        // required: true,
     },
     streetAddress:{
         type: String,
-        require: true,
+        // require: true,
     },
     city:{
         type: String,
-        require: true
-    },
-    state:{
-        type: String
+        // require: true
     },
     zip:{
         type: String,
-        require: true
+        // require: true
     },
     country:{
         type: String,
-        require: true
+        // require: true
     },
     phone:{
         type: Number,
-        require: true
+        // require: true
     },
     orderNote:{
         type: String

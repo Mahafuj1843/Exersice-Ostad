@@ -1,11 +1,34 @@
 import React, { useRef, useState } from 'react'
 import { Fragment } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ErrorToast, IsEmail, IsEmpty, IsPassword } from '../helper/formHelper'
+import { RegistrationRequest } from '../api_request/authRequest'
 
 const SignUp = () => {
     const [show, setShow] = useState(false)
     let fname, lname, email, password = useRef()
     let navigate = useNavigate();
+
+    const onRegister = async () => {
+        if (IsEmpty(fname.value)) {
+            ErrorToast("Firstname required !")
+        }
+        else if (IsEmpty(lname.value)) {
+            ErrorToast("Lastname Required !")
+        }
+        else if (IsEmail(email.value)) {
+            ErrorToast("Invalid email address.")
+        }
+        else if (IsPassword(password.value)) {
+            ErrorToast("Password must be six characters, at least one letter and one number !")
+        }
+        else {
+            await RegistrationRequest(fname.value, lname.value, email.value, password.value).then((result) => {
+                if (result) window.location.href='/signin'
+                else navigate('/')
+            })
+        }
+    }
 
     return (
         <Fragment>
@@ -61,7 +84,7 @@ const SignUp = () => {
                                         <label for="terms" className="font-medium text-gray-500">Remember me </label>
                                     </div>
                                 </div>
-                                <button /*onClick={onRegister}*/ type="submit" className="w-full text-white bg-[#0C7075] hover:bg-[#157c81] focus:ring-4 focus:outline-none focus:ring-[#38b9c0] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create an account</button>
+                                <button onClick={onRegister} type="submit" className="w-full text-white bg-[#0C7075] hover:bg-[#157c81] focus:ring-4 focus:outline-none focus:ring-[#38b9c0] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create an account</button>
                                 <p className="text-sm font-light text-gray-500">
                                     Already have an account? <Link to="/signin" className="font-medium text-[#0C7075] hover:underline ">Login here</Link>
                                 </p>
