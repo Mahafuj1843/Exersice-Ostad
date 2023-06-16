@@ -1,0 +1,3 @@
+Live link: shop.web.onrender.com
+server start: yarn start
+client start: npm run dev

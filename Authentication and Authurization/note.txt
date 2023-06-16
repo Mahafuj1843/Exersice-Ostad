@@ -1,0 +1,6 @@
+server start: yarn start
+
+client start: yarn start
+
+email: jhon@gmail.com
+password: a12345
