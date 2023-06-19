@@ -5,15 +5,15 @@ const OrderSchema = new mongoose.Schema({
         type:Number,
         require: true
     },
-    coupon:{
-        type: String,
-        // ref: "Coupon",
-        default: ""
-    },
-    discount:{
-        type:Number,
-        default: 0
-    },
+    // coupon:{
+    //     type: String,
+    //     // ref: "Coupon",
+    //     default: ""
+    // },
+    // discount:{
+    //     type:Number,
+    //     default: 0
+    // },
     shippingCost:{
         type:Number,
         require: true
@@ -34,6 +34,10 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         default: "Incomplete",
         enum: [ "Incomplete", "Success", "Failed" ]
+    },
+    orderDate:{
+        type: Date,
+        default: new Date()
     },
     deliveryDate: {
         type: Date

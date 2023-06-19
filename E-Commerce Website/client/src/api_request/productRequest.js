@@ -4,7 +4,7 @@ import axios from "axios";
 import store from "../redux/store/store";
 import { ErrorToast } from "../helper/formHelper";
 import { setProduct, setProductDetails } from "../redux/state/productSlice";
-const BaseURL = "http://localhost:8001/api"
+const BaseURL = "https://shop-web.onrender.com/api"
 // const AxiosHeader = { headers: { "token": getToken() } }
 
 export const AllProductRequest = () => {

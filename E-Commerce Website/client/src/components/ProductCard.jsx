@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-import IMG from '../assets/image/thumbnail.webp'
 import Ratings from './Ratings'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'

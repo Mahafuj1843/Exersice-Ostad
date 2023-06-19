@@ -24,7 +24,7 @@ const SignUp = () => {
         }
         else {
             await RegistrationRequest(fname.value, lname.value, email.value, password.value).then((result) => {
-                if (result) window.location.href='/signin'
+                if (result) navigate('/signin')
                 else navigate('/')
             })
         }

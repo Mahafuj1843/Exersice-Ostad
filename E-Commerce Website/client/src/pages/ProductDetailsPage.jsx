@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import IMG from '../assets/image/thumbnail.webp'
 import ProductCarousel from '../components/ProductCarousel'
 import Ratings from '../components/Ratings'
 import { ProductdetailsRequest } from '../api_request/productRequest'

@@ -3,7 +3,7 @@ const Coupon = require("../models/Coupon");
 const { findCoupon } = require("../utils/helper");
 const Shipping = require("../models/Shipping");
 
-exports.parentChildCreateService = async (Req, OModel, OIModel, SModel, paymentIndent) =>{
+exports.orderService = async (Req, OModel, OIModel, SModel, paymentIndent) =>{
 
         // Create Transaction Session
         const session = await mongoose.startSession()
@@ -32,26 +32,30 @@ exports.parentChildCreateService = async (Req, OModel, OIModel, SModel, paymentI
     })
 
     let order = await OModel.create([newOrder], {session})
+                let cartItems = []
+                for(let item of Req.body.cartItems){
+                    cartItems = [...cartItems, {order: order[0]._id, product: item._id, qty: item.qty}]
+                }
+                console.log(cartItems)
+                let orderItems = await OIModel.insertMany(cartItems, {session})
 
-                let cart = await Req.body.cartItems.map((e)=>{
-                    e['order'] = order[0]._id,
-                    e['product'] = e._id,
-                    e['qty'] = e.qty
-                })
-                let orderItems = await OIModel.insertMany(cart, {session})
-                console.log(Req.body.shipping)
-                const createShipping = new SModel({
-                    orderId: order[0]._id,
-                    firstname: Req.body.firstname,
-                    lastname: Req.body.lastname,
-                    email: Req.body.email,
-                    streetAddress: Req.body.address,
-                    city: Req.body.city,
-                    zip: Req.body.zip,
-                    country: Req.body.country,
-                    phone: Req.body.phone,
-                    orderNote: Req.body.note,
-                })
+                // console.log(Req.body.shipping)
+                Req.body.shipping.orderId = order[0]._id
+                const createShipping = new SModel(
+                    // {
+                    Req.body.shipping
+                //     orderId: order[0]._id,
+                //     firstname: Req.body.shipping.firstname,
+                //     lastname: Req.body.shipping.lastname,
+                //     email: Req.body.shipping.email,
+                //     address: Req.body.shipping.address,
+                //     city: Req.body.shipping.city,
+                //     zip: Req.body.shipping.zip,
+                //     country: Req.body.shipping.country,
+                //     phone: Req.body.shipping.phone,
+                //     orderNote: Req.body.shipping.note,
+                // }
+                )
                 let shipping
                 if(orderItems){
                     shipping = await createShipping.save();

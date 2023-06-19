@@ -3,7 +3,7 @@ import store from "../redux/store/store";
 import { ErrorToast, SuccessToast } from "../helper/formHelper";
 import { setCart } from "../redux/state/cartSlice";
 import { getToken, removeSessions, setToken, setUserDetails } from "../helper/sessionHelper";
-const BaseURL = "http://localhost:8001/api"
+const BaseURL = "https://shop-web.onrender.com/api"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const RegistrationRequest = (firstname, lastname, email, password) => {

@@ -17,6 +17,7 @@ import Footer from './layout/Footer';
 import Header from './layout/Header';
 import { ProtectedRoute } from './helper/protectedRoute';
 import CheckoutPage from './pages/CheckoutPage';
+import OrderPage from './pages/OrderPage';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <Route exact path='/checkout' element={<ProtectedRoute Component={CheckoutPage} />} />
           <Route exact path='/payment' element={<ProtectedRoute Component={PaymentPage} />} />
           <Route exact path='/success' element={<ProtectedRoute Component={SuccessPage} />} />
+          <Route exact path='/orders' element={<ProtectedRoute Component={OrderPage} />} />
           <Route exact path='/about' element={<AboutPage />} />
           <Route exact path='/contact' element={<ContactPage />} />
         </Routes>

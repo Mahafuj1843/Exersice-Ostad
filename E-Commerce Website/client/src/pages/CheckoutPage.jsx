@@ -1,11 +1,11 @@
 import React, { Fragment, useRef } from 'react'
-import IMG from '../assets/image/thumbnail.webp'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { ErrorToast, IsEmail, IsEmpty } from '../helper/formHelper';
 import { PlaceOrder } from '../api_request/orderRequest';
 
 const CheckoutPage = () => {
+    const Navigate = useNavigate()
     let cart = useSelector((state) => (state.cart.Cart));
     let email,fname,lname,address,city,zip,country,phone,note = useRef()
 
@@ -36,10 +36,10 @@ const CheckoutPage = () => {
                 zip: zip.value,
                 country: country.value,
                 phone: phone.value,
-                note: note.value
+                orderNote: note.value
             }
             let data = await PlaceOrder(shipping, cart);
-            console.log(data)
+            if(data) Navigate("/payment")
         }
     }
     return (
@@ -100,13 +100,13 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to="/payment"
+                                <button
                                     className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center"
                                 onClick={onCheckout}
                                 >
                                     Place Order
                                     {/* {loading && <img src="/spinner.svg" />} */}
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </div>

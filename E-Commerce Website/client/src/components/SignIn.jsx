@@ -22,12 +22,12 @@ const SignIn = () => {
             })
         }
     }
-    const onLoginGuest = async () => {
-        await LoginRequest('johncena@gmail.com', 'a12345').then((result) => {
-            if (result) navigate('/cart')
-            else navigate('/signin')
-        })
-    }
+    // const onLoginGuest = async () => {
+    //     await LoginRequest('johncena@gmail.com', 'a12345').then((result) => {
+    //         if (result) navigate('/cart')
+    //         else navigate('/signin')
+    //     })
+    // }
 
     return (
         <Fragment>
@@ -80,7 +80,7 @@ const SignIn = () => {
                                 <p className="text-sm font-light text-gray-500 ">
                                     Don’t have an account yet? <Link to="/signup" className="font-medium text-[#0C7075] hover:underline ">Sign up</Link>
                                 </p>
-                                <button onClick={onLoginGuest} type="submit" className="w-full text-white bg-[#142d2e] hover:bg-[#152627] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ]">Sign in as guest user</button>
+                                {/* <button onClick={onLoginGuest} type="submit" className="w-full text-white bg-[#142d2e] hover:bg-[#152627] focus:ring-4 focus:outline-none focus:ring-[#109fa7] font-medium rounded-lg text-sm px-5 py-2.5 text-center ]">Sign in as guest user</button> */}
                             </div>
                         </div>
                     </div>

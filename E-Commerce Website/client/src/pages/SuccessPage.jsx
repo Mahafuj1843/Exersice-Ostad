@@ -1,6 +1,29 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { updateOrderStatus } from '../api_request/orderRequest'
 
 const SuccessPage = () => {
+  const { search } = useLocation()
+  const navigate = useNavigate()
+  const params = new URLSearchParams(search)
+  const payment_intent = params.get("payment_intent");
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        if(await updateOrderStatus(payment_intent)){
+          setTimeout(() => {
+            navigate("/orders");
+          }, 5000);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    makeRequest();
+  }, []);
+
   return (
     <Fragment>
       <div className='w-full px-[2rem] md:px-[3rem] lg:px-[5rem] py-14 md:py-32'>

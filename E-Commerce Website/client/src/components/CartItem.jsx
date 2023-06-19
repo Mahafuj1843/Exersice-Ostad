@@ -1,6 +1,5 @@
 import React from 'react'
 import { Fragment } from 'react'
-import IMG from '../assets/image/thumbnail.webp'
 import store from '../redux/store/store'
 import { removeFromCart } from '../redux/state/cartSlice'
 

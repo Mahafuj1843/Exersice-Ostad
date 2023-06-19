@@ -3,39 +3,40 @@ const mongoose = require('mongoose')
 const ShippingSchema = new mongoose.Schema({
     orderId:{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: "Order"
+        ref: "Order",
+        required: true,
     },
     firstname:{
         type: String,
-        // required: true,
+        required: true,
     },
     lastname:{
         type: String,
-        // required: true,
+        required: true,
     },
     email:{
         type: String,
-        // required: true,
+        required: true,
     },
-    streetAddress:{
+    address:{
         type: String,
-        // require: true,
+        require: true,
     },
     city:{
         type: String,
-        // require: true
+        require: true
     },
     zip:{
-        type: String,
-        // require: true
+        type: Number,
+        require: true
     },
     country:{
         type: String,
-        // require: true
+        require: true
     },
     phone:{
         type: Number,
-        // require: true
+        require: true
     },
     orderNote:{
         type: String
